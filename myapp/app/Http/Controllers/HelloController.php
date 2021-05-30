@@ -36,20 +36,29 @@ function tag(string $tag, string $txt, string $attributes = '') {
 
 class HelloController extends Controller
 {
-    public function index() {
-        global $head, $style, $body, $end;
-
-        $html = $head. tag('title', 'Hello/Index'). $style. $body
-        . tag('h1', 'Index'). tag('p', 'this is Index page')
-        . tag('a', 'go to Other page', 'href="/hello/other"')
-        . $end;
-        return $html;
-    }
-
-    public function other() {
-        global $head, $style, $body, $end;
-        $html = $head. tag('title', 'Hello/Other'). $style. $body
-        . tag('h1', 'Other'). tag('p', 'this is Other page'). $end;
-        return $html;
+    public function __invoke() {
+        return <<< EOF
+        <html>
+        <head>
+        <title>Hello</title>
+        <style>
+        body {
+            color: #999;
+            font-size: 16pt;
+        }
+        h1 {
+            color: #eee;
+            font-size: 30pt;
+            margin: -15px 0px 0px 0px;
+            text-align: right;
+        }
+        </style>
+        </head>
+        <body>
+        <h1>Single Action</h1>
+        <p>これは、シングルアクションコントローラのアクションです。</p>
+        </body>
+        </html>
+        EOF;
     }
 }
