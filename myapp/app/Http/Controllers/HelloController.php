@@ -3,62 +3,39 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
-global $head, $style, $body, $end;
-
-$head  = '<html><head>';
-$style = <<< EOF
-    <style>
-    body {
-        color: #999;
-        font-size: 16pt;
-    }
-    h1 {
-        color: #eee;
-        font-size: 100pt;
-        margin: -40px 0px -50px 0px;
-        text-align: center;
-    }
-    </style>
-EOF;
-$body  = '</head><body>';
-$end   = '</body></html>';
-
-function tag(string $tag, string $txt, string $attributes = '') {
-    $endTag = $tag;
-
-    if($attributes) {
-        $tag = $tag. ' '. $attributes;
-    }
-
-    return "<{$tag}>". $txt. "</{$endTag}>";
-}
+use Illuminate\Http\Response;
 
 class HelloController extends Controller
 {
-    public function __invoke() {
-        return <<< EOF
+    public function index(Request $request, Response $response) {
+        $html = <<< EOF
         <html>
         <head>
-        <title>Hello</title>
+        <title>Hello/Index</title>
         <style>
         body {
             color: #999;
             font-size: 16pt;
         }
         h1 {
-            color: #eee;
-            font-size: 30pt;
-            margin: -15px 0px 0px 0px;
+            color: #fafafa;
+            font-size: 120pt;
+            margin: -50px 0px -120px 0px;
             text-align: right;
         }
         </style>
         </head>
         <body>
-        <h1>Single Action</h1>
-        <p>これは、シングルアクションコントローラのアクションです。</p>
+        <h1>Hello</h1>
+        <h3>Request</h3>
+        <pre>{$request}</pre>
+        <h3>Response</h3>
+        <pre>{$response}</pre>
         </body>
         </html>
         EOF;
+
+        $response->setContent($html);
+        return $response;
     }
 }
