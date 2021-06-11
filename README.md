@@ -25,10 +25,9 @@ cd Laravel
 docker-compose build --no-cache
 ```
 ```
+docker-compose run --rm --no-deps app sh -c "cd myapp && cp .env.example .env && composer install && php artisan key:generate"
+```
+```
 docker-compose up -d
 ```
-```
-docker-compose exec app /bin/bash
-```
-```
-cd myapp && cp .env.example .env && composer install && php artisan key:generate
+CLIENT_URLは、http://localhost:8080です。
