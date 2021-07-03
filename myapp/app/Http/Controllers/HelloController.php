@@ -30,4 +30,19 @@ class HelloController extends Controller
         $response->cookie('msg', $msg, 100);
         return $response;
     }
+
+    public function add(Request $request) {
+        return view('hello.add');
+    }
+
+    public function create(Request $request) {
+        $params = [
+            'name' => $request->name,
+            'mail' => $request->mail,
+            'age'  => $request->age
+        ];
+        $query = 'INSERT INTO people(name, mail, age) VALUES(:name, :mail, :age)';
+        DB::insert($query, $params);
+        return redirect('/hello');
+    }
 }
