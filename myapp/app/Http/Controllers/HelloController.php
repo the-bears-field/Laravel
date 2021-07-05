@@ -70,4 +70,26 @@ class HelloController extends Controller
         DB::update($query, $params);
         return redirect('/hello');
     }
+
+    public function del(Request $request) {
+        if (!$request->id) {
+            return redirect('/hello');
+        }
+
+        $params = [
+            'id' => $request->id
+        ];
+        $query = 'SELECT * FROM people WHERE id = :id';
+        $item = DB::select($query, $params);
+        return view('hello.del', ['form' => $item[0]]);
+    }
+
+    public function remove(Request $request) {
+        $params = [
+            'id' => $request->id
+        ];
+        $query = 'DELETE FROM people WHERE id = :id';
+        DB::delete($query, $params);
+        return redirect('/hello');
+    }
 }
