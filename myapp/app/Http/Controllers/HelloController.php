@@ -94,10 +94,10 @@ class HelloController extends Controller
         }
 
         $id = $request->id;
-        $item = DB::table('people')->where('id', $id)->first();
+        $items = DB::table('people')->where('id', '<=', $id)->get();
 
-        if ($item) {
-            return view('hello.show', ['item' => $item]);
+        if ($items) {
+            return view('hello.show', ['items' => $items]);
         } else {
             return redirect('/hello');
         }
