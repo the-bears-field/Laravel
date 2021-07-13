@@ -89,14 +89,8 @@ class HelloController extends Controller
     }
 
     public function show(Request $request) {
-        if (!$request->min || !$request->max) {
-            return redirect('/hello');
-        }
-
-        $min = $request->min;
-        $max = $request->max;
         $items = DB::table('people')
-            ->whereRaw('age >= ? and age <= ?', [$min, $max])
+            ->orderBy('age', 'desc')
             ->get();
 
         if ($items) {
