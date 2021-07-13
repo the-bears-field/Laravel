@@ -89,8 +89,14 @@ class HelloController extends Controller
     }
 
     public function show(Request $request) {
+        if (isset($request->page)) {
+            return redirect('/hello');
+        }
+
+        $page = $request->page;
         $items = DB::table('people')
-            ->orderBy('age', 'desc')
+            ->offset($page * 3)
+            ->limit(3)
             ->get();
 
         if ($items) {
