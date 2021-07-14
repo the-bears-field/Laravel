@@ -41,27 +41,27 @@ class HelloController extends Controller
     }
 
     public function edit(Request $request) {
-        if (!$request->id) {
+        if (!isset($request->id)) {
             return redirect('/hello');
         }
 
-        $params = [
-            'id' => $request->id
-        ];
-        $query = 'SELECT * FROM people WHERE id = :id';
-        $item = DB::select($query, $params);
-        return view('hello.edit', ['form' => $item[0]]);
+        $id = $request->id;
+        $item = DB::table('people')->where('id', $id)->get();
+        if ($item->isNotEmpty()) {
+            return view('hello.edit', ['form' => $item[0]]);
+        } else {
+            return redirect('/hello');
+        }
     }
 
     public function update(Request $request) {
+        $id = $request->id;
         $params = [
-            'id'   => $request->id,
             'name' => $request->name,
             'mail' => $request->mail,
             'age'  => $request->age
         ];
-        $query = 'UPDATE people SET name = :name, mail = :mail, age = :age WHERE id = :id';
-        DB::update($query, $params);
+        DB::table('people')->where('id', $id)->update($params);
         return redirect('/hello');
     }
 
