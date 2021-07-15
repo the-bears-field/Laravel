@@ -66,24 +66,25 @@ class HelloController extends Controller
     }
 
     public function del(Request $request) {
-        if (!$request->id) {
+        if (!isset($request->id)) {
             return redirect('/hello');
         }
 
-        $params = [
-            'id' => $request->id
-        ];
-        $query = 'SELECT * FROM people WHERE id = :id';
-        $item = DB::select($query, $params);
-        return view('hello.del', ['form' => $item[0]]);
+        $id = $request->id;
+        $item = DB::table('people')->where('id', $id)->get();
+        if ($item->isNotEmpty()) {
+            return view('hello.del', ['form' => $item[0]]);
+        } else {
+            return redirect('/hello');
+        }
     }
 
     public function remove(Request $request) {
-        $params = [
-            'id' => $request->id
-        ];
-        $query = 'DELETE FROM people WHERE id = :id';
-        DB::delete($query, $params);
+        if (!isset($request->id)) {
+            return redirect('/hello');
+        }
+        $id = $request->id;
+        DB::table('people')->where('id', $id)->delete();
         return redirect('/hello');
     }
 
