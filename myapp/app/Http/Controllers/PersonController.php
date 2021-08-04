@@ -21,7 +21,9 @@ class PersonController extends Controller
     public function search(Request $request)
     {
         $input = $request->input;
-        $item = Person::nameEqual($input)->first();
+        $min = $input * 1;
+        $max = $min + 10;
+        $item = Person::ageGreaterThan($min)->ageLessThan($max)->first();
         $param = [
             'input' => $input,
             'item' => $item

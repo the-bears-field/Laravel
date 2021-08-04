@@ -19,4 +19,14 @@ class Person extends Model
     {
         return $query->where('name', $str);
     }
+
+    public function scopeAgeGreaterThan(Builder $query, $n)
+    {
+        return $query->where('age', '>=', $n);
+    }
+
+    public function scopeAgeLessThan(Builder $query, $n)
+    {
+        return $query->where('age', '<=', $n);
+    }
 }
