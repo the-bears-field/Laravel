@@ -10,6 +10,15 @@ class Person extends Model
 {
     use HasFactory;
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope('age', function(Builder $builder){
+            $builder->where('age', '>', 20);
+        });
+    }
+
     public function getData(): string
     {
         return $this->id. ': '. $this->name. ' ('. $this->age. ')';
