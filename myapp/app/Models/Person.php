@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use App\Scopes\ScopePerson;
 
 class Person extends Model
 {
@@ -14,9 +15,7 @@ class Person extends Model
     {
         parent::boot();
 
-        static::addGlobalScope('age', function(Builder $builder){
-            $builder->where('age', '>', 20);
-        });
+        static::addGlobalScope(new ScopePerson);
     }
 
     public function getData(): string
