@@ -11,6 +11,13 @@ class Person extends Model
 {
     use HasFactory;
 
+    protected $guarded = ['id'];
+    public static $rules = [
+        'name' => 'required',
+        'mail' => 'email',
+        'age' => 'integer|min:0|max:150'
+    ];
+
     protected static function boot()
     {
         parent::boot();
