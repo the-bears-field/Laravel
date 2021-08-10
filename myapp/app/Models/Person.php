@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Scopes\ScopePerson;
 
 class Person extends Model
@@ -46,8 +46,8 @@ class Person extends Model
         return $query->where('age', '<=', $n);
     }
 
-    public function board(): HasOne
+    public function boards(): HasMany
     {
-        return $this->hasOne(Board::class);
+        return $this->hasMany(Board::class);
     }
 }
