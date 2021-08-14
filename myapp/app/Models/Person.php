@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Scopes\ScopePerson;
 
 class Person extends Model
@@ -43,5 +44,10 @@ class Person extends Model
     public function scopeAgeLessThan(Builder $query, $n)
     {
         return $query->where('age', '<=', $n);
+    }
+
+    public function boards(): HasMany
+    {
+        return $this->hasMany(Board::class);
     }
 }
