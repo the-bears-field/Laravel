@@ -110,4 +110,17 @@ class HelloController extends Controller
     {
         return view('hello.rest');
     }
+
+    public function getSession(Request $request)
+    {
+        $sessionData = $request->session()->get('msg');
+        return view('hello.session', ['sessionData' => $sessionData]);
+    }
+
+    public function putSession(Request $request)
+    {
+        $msg = $request->input;
+        $request->session()->put('msg', $msg);
+        return redirect('hello/session');
+    }
 }
