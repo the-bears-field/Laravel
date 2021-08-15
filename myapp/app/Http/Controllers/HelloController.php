@@ -105,4 +105,9 @@ class HelloController extends Controller
             return redirect('/hello');
         }
     }
+
+    public function rest()
+    {
+        return view('hello.rest');
+    }
 }
