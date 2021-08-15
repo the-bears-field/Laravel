@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Restdata;
 
 class RestappController extends Controller
 {
@@ -13,7 +14,8 @@ class RestappController extends Controller
      */
     public function index()
     {
-        //
+        $items = Restdata::all();
+        return $items->toArray();
     }
 
     /**
@@ -23,7 +25,7 @@ class RestappController extends Controller
      */
     public function create()
     {
-        //
+        return view('rest.create');
     }
 
     /**
@@ -34,7 +36,10 @@ class RestappController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $form = $request->all();
+        unset($form['_token']);
+        (new Restdata)->fill($form)->save();
+        return redirect('/rest');
     }
 
     /**
@@ -45,7 +50,9 @@ class RestappController extends Controller
      */
     public function show($id)
     {
-        //
+        return !$id || !Restdata::find($id)
+            ? redirect('/rest')
+            : Restdata::find($id)->toArray();
     }
 
     /**
