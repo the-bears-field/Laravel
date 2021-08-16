@@ -7,6 +7,22 @@
     .pagination li {
         display:inline-block
     }
+
+    tr th a:link {
+        color: white;
+    }
+
+    tr th a:visited {
+        color: white;
+    }
+
+    tr th a:hover {
+        color: white;
+    }
+
+    tr th a:active {
+        color: white;
+    }
 </style>
 @section('title', 'index')
 @section('menubar')
@@ -17,9 +33,9 @@
 @section('content')
     <table>
         <tr>
-            <th>Name</th>
-            <th>Mail</th>
-            <th>Age</th>
+            <th><a href="/hello?sort=name">Name</a></th>
+            <th><a href="/hello?sort=mail">mail</a></th>
+            <th><a href="/hello?sort=age">age</a></th>
         </tr>
         @foreach($items as $item)
             <tr>
@@ -29,7 +45,7 @@
             </tr>
         @endforeach
     </table>
-    {{ $items->links() }}
+    {{ $items->appends(['sort' => $sort])->links() }}
 @endsection
 
 @section('footer')
