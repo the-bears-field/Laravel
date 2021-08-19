@@ -45,7 +45,7 @@
             </tr>
         @endforeach
     </table>
-    {{ $items->appends(['sort' => $sort])->links() }}
+    {{ $items->appends(['sort' => $sort])->links('vendor.pagination.bootstrap-4') }}
 @endsection
 
 @section('footer')
