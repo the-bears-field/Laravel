@@ -7,7 +7,7 @@ ENV COMPOSER_ALLOW_SUPERUSER=1 \
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 RUN apt-get -qq update && \
-    apt-get -y install vim git unzip libzip-dev libicu-dev libonig-dev && \
+    apt-get -y install vim git unzip libzip-dev libicu-dev libonig-dev nodejs && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
     docker-php-ext-install intl pdo_mysql zip bcmath
