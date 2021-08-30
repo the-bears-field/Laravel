@@ -25,7 +25,7 @@ cd Laravel
 docker-compose build --no-cache
 ```
 ```
-docker-compose run --rm --no-deps app sh -c "cd myapp && cp .env.example .env && composer install && php artisan key:generate"
+docker-compose run --rm app sh initializeAppContainer.sh
 ```
 ```
 docker-compose up -d
