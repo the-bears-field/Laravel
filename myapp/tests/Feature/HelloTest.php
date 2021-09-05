@@ -7,6 +7,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 use App\Models\User;
+use App\Models\Person;
 
 class HelloTest extends TestCase
 {
@@ -18,19 +19,30 @@ class HelloTest extends TestCase
      */
     public function testHello()
     {
-        $this->assertTrue(true);
+        $user = User::factory()->create([
+            'name' => 'AAA',
+            'email' => 'BBB@CCC.COM',
+            'password' => 'ABCABC'
+        ]);
+        $user = User::factory()->count(10)->create();
 
-        $response = $this->get('/');
-        $response->assertStatus(200);
+        $this->assertDatabaseHas('users', [
+            'name' => 'AAA',
+            'email' => 'BBB@CCC.COM',
+            'password' => 'ABCABC'
+        ]);
 
-        $response = $this->get('/hello');
-        $response->assertStatus(302);
+        $person = Person::factory([
+            'name' => 'XXX',
+            'mail' => 'YYY@ZZZ.COM',
+            'age' => 123
+        ])->create();
+        $person = Person::factory()->count(10)->create();
 
-        $user = User::factory()->create();
-        $response = $this->actingAs($user)->get('/hello');
-        $response->assertStatus(200);
-
-        $response = $this->get('/no_route');
-        $response->assertStatus(404);
+        $this->assertDatabaseHas('people', [
+            'name' => 'XXX',
+            'mail' => 'YYY@ZZZ.COM',
+            'age' => 123
+        ]);
     }
 }
